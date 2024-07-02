@@ -1,20 +1,16 @@
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import styles from "./UserInfo.module.scss";
 
 const UserInfo = () => {
-  const { user, logout } = useContext(AuthContext);
+  // Placeholder user info
+  const user = {
+    name: "John Doe",
+    email: "john@example.com",
+  };
 
   return (
     <div className={styles.userInfo}>
-      {user ? (
-        <>
-          <span>{user.name}</span>
-          <button onClick={logout}>Logout</button>
-        </>
-      ) : (
-        <span>Not logged in</span>
-      )}
+      <p>{user.name}</p>
+      <p>{user.email}</p>
     </div>
   );
 };

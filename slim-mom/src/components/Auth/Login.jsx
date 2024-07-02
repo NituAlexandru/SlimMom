@@ -1,9 +1,8 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import styles from "./Login.module.scss";
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,20 +12,18 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={handleSubmit}>
       <input
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        required
       />
       <input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        required
       />
       <button type="submit">Login</button>
     </form>

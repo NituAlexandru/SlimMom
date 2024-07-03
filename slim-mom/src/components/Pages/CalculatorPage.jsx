@@ -1,93 +1,39 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../../services/api"; // Folosim api-ul configurat
+import CalculatorCalorieForm from "../Forms/CalculatorCalorieForm";
 
+// CalculatorPage component to display the calorie calculator form and handle its logic
 const CalculatorPage = () => {
-  const [formData, setFormData] = useState({
-    height: "",
-    weight: "",
-    age: "",
-    desiredWeight: "",
-    bloodType: "",
-  });
+  const [result, setResult] = useState(null); // State to store the result of the calorie calculation
 
-  const [result, setResult] = useState(null);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  // Function to handle form submission and make API request
+  const handleCalculatorSubmit = async (formData) => {
+    try {
+      // Making a POST request to the /calories/user endpoint with form data
+      const response = await api.post("/calories/user", formData);
+      // Setting the result state with the response data
+      setResult(response.data);
+    } catch (error) {
+      // Logging any errors that occur during the API request
+      console.error("Error calculating daily intake:", error);
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await axios.post("/api/calories/public", formData);
-    setResult(response.data);
+  // Function to reset the result state
+  const resetResult = () => {
+    setResult(null);
   };
 
   return (
     <div>
-      <h1>Calorie Calculator</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          name="height"
-          placeholder="Height"
-          value={formData.height}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="weight"
-          placeholder="Weight"
-          value={formData.weight}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="age"
-          placeholder="Age"
-          value={formData.age}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="desiredWeight"
-          placeholder="Desired Weight"
-          value={formData.desiredWeight}
-          onChange={handleChange}
-          required
-        />
-        <select
-          name="bloodType"
-          value={formData.bloodType}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Blood Type</option>
-          <option value="1">Type 1</option>
-          <option value="2">Type 2</option>
-          <option value="3">Type 3</option>
-          <option value="4">Type 4</option>
-        </select>
-        <button type="submit">Calculate</button>
-      </form>
-      {result && (
-        <div>
-          <h2>Daily Calories: {result.dailyCalories}</h2>
-          <h3>Non-Recommended Products:</h3>
-          <ul>
-            {result.nonRecommended.map((product, index) => (
-              <li key={index}>{product.title}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <h1>Calculator</h1>
+      <CalculatorCalorieForm
+        onSubmit={handleCalculatorSubmit} // Passing the handleCalculatorSubmit function as a prop
+        result={result} // Passing the result state as a prop
+        resetResult={resetResult} // Passing the resetResult function as a prop
+      />
     </div>
   );
 };
 
-export default CalculatorPage;
+export default CalculatorPage; // Exporting the CalculatorPage component

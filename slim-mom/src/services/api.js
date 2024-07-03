@@ -1,25 +1,28 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api";
+// Creating an Axios instance with a base URL
+const api = axios.create({
+  baseURL: "http://localhost:5000/api", // Base URL for all API requests
+});
 
-export const registerUser = async (userData) => {
-  try {
-    const response = await axios.post(`${API_URL}/auth/register`, userData);
-    return response.data;
-  } catch (error) {
-    console.error("Error registering user:", error);
-    throw error;
+// Adding a request interceptor to the Axios instance
+api.interceptors.request.use(
+  (config) => {
+    // Retrieving the token from localStorage
+    const token = localStorage.getItem("token");
+
+    // If a token exists, add it to the Authorization header
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    // Returning the config object to proceed with the request
+    return config;
+  },
+  (error) => {
+    // Handling any request errors
+    return Promise.reject(error);
   }
-};
+);
 
-export const loginUser = async (credentials) => {
-  try {
-    const response = await axios.post(`${API_URL}/auth/login`, credentials);
-    return response.data;
-  } catch (error) {
-    console.error("Error logging in:", error);
-    throw error;
-  }
-};
-
-
+export default api;

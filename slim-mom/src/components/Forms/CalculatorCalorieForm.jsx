@@ -1,8 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./CalculatorCalorieForm.module.scss";
+import ResultModal from "../Common/ResultModal";
 
-const CalculatorCalorieForm = ({ onSubmit }) => {
+// CalculatorCalorieForm component handles the form for inputting user data to calculate daily calorie intake.
+const CalculatorCalorieForm = ({ onSubmit, result, resetResult }) => {
+  // useState hook to manage form data state
   const [formData, setFormData] = useState({
     height: "",
     weight: "",
@@ -11,6 +14,7 @@ const CalculatorCalorieForm = ({ onSubmit }) => {
     bloodType: 1,
   });
 
+  // handleChange function updates formData state when input fields change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -19,62 +23,118 @@ const CalculatorCalorieForm = ({ onSubmit }) => {
     });
   };
 
+  // handleRadioChange function updates the bloodType state when radio buttons change
+  const handleRadioChange = (e) => {
+    setFormData({
+      ...formData,
+      bloodType: parseInt(e.target.value, 10),
+    });
+  };
+
+  // handleSubmit function prevents default form submission and calls onSubmit with formData
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <input
-        type="number"
-        name="height"
-        value={formData.height}
-        onChange={handleChange}
-        placeholder="Height"
-        required
-      />
-      <input
-        type="number"
-        name="weight"
-        value={formData.weight}
-        onChange={handleChange}
-        placeholder="Weight"
-        required
-      />
-      <input
-        type="number"
-        name="age"
-        value={formData.age}
-        onChange={handleChange}
-        placeholder="Age"
-        required
-      />
-      <input
-        type="number"
-        name="desiredWeight"
-        value={formData.desiredWeight}
-        onChange={handleChange}
-        placeholder="Desired Weight"
-        required
-      />
-      <select
-        name="bloodType"
-        value={formData.bloodType}
-        onChange={handleChange}
-      >
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-      </select>
-      <button type="submit">Calculate</button>
-    </form>
+    <div>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <input
+          type="number"
+          name="height"
+          value={formData.height}
+          onChange={handleChange}
+          placeholder="Height"
+          required
+        />
+        <input
+          type="number"
+          name="weight"
+          value={formData.weight}
+          onChange={handleChange}
+          placeholder="Weight"
+          required
+        />
+        <input
+          type="number"
+          name="age"
+          value={formData.age}
+          onChange={handleChange}
+          placeholder="Age"
+          required
+        />
+        <input
+          type="number"
+          name="desiredWeight"
+          value={formData.desiredWeight}
+          onChange={handleChange}
+          placeholder="Desired Weight"
+          required
+        />
+        <div className={styles.bloodTypeSection}>
+          <label>Blood Type *</label>{" "}
+          <div className={styles.radioButtons}>
+            <label>
+              <input
+                type="radio"
+                name="bloodType"
+                value={1}
+                checked={formData.bloodType === 1}
+                onChange={handleRadioChange}
+              />
+              1
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="bloodType"
+                value={2}
+                checked={formData.bloodType === 2}
+                onChange={handleRadioChange}
+              />
+              2
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="bloodType"
+                value={3}
+                checked={formData.bloodType === 3}
+                onChange={handleRadioChange}
+              />
+              3
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="bloodType"
+                value={4}
+                checked={formData.bloodType === 4}
+                onChange={handleRadioChange}
+              />
+              4
+            </label>
+          </div>
+        </div>
+        <button type="submit">Calculate</button>
+      </form>
+      {result && (
+        <ResultModal
+          isOpen={true}
+          onRequestClose={resetResult}
+          result={result}
+        />
+      )}
+    </div>
   );
 };
 
+// Prop type validation to ensure the component receives the correct props
 CalculatorCalorieForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired, // Function to handle form submission
+  result: PropTypes.object, // Object containing the result data
+  resetResult: PropTypes.func.isRequired, // Function to reset the result state
 };
 
-export default CalculatorCalorieForm;
+export default CalculatorCalorieForm; // Exports the CalculatorCalorieForm component

@@ -3,7 +3,9 @@ import {
   registerUser,
   loginUser,
   logoutUser,
+  getUser,
 } from "../controllers/authController.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router(); // Creating a new router instance
 
@@ -16,4 +18,7 @@ router.post("/login", loginUser);
 // Route to handle user logout
 router.post("/logout", logoutUser);
 
-export default router; // Exporting the router instance
+// Route to get user details
+router.get("/user", authMiddleware, getUser);
+
+export default router; 

@@ -1,12 +1,15 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import productRoutes from "./routes/products.js";
 import calorieRoutes from "./routes/calories.js";
 import consumedProductRoutes from "./routes/consumedProducts.js";
 import dayInfoRoutes from "./routes/dayInfo.js";
 import setupSwagger from "./docs/swagger.js";
+
+dotenv.config();
 
 const app = express(); // Creating an instance of express
 

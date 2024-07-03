@@ -8,22 +8,18 @@ const SECRET_KEY = process.env.SECRET_KEY; // Retrieving the secret key for JWT 
 // Middleware function to handle authentication
 const authMiddleware = (req, res, next) => {
   // Extracting the token from the Authorization header
-  const token = req.headers.authorization.split(" ")[1];
-  if (token) {
-    // Verifying the token using the secret key
-    jwt.verify(token, SECRET_KEY, (err, decoded) => {
-      if (err) {
-        // Sending a 401 response if the token is invalid or expired
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-      // Storing the decoded token payload (user information) in the request object
-      req.user = decoded;
-      // Calling the next middleware function in the stack
-      next();
-    });
-  } else {
-    // Sending a 401 response if the token is not provided
-    res.status(401).json({ message: "Unauthorized" });
+  const token = req.header("Authorization")?.replace("Bearer ", "");
+
+  if (!token) {
+    return res.status(401).json({ message: "No token, authorization denied" }); // If no token is found, send a 401 response
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY); // Verifying the token
+    req.user = decoded; // Attaching the decoded user information to the request object
+    next(); // Proceeding to the next middleware or route handler
+  } catch (error) {
+    res.status(401).json({ message: "Token is not valid" }); // Sending a 401 response if the token is invalid
   }
 };
 

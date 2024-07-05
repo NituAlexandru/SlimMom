@@ -1,4 +1,4 @@
-import { readDb } from "../utils/fileOperations.js"; 
+import { readDb } from "../utils/fileOperations.js";
 
 // Controller function to handle retrieving all products
 export const getProducts = async (req, res) => {
@@ -23,7 +23,7 @@ export const searchProducts = async (req, res) => {
     const products = await readDb();
     // Filtering the products based on the search query
     const filteredProducts = products.filter((product) =>
-      product.title.toLowerCase().includes(query.toLowerCase())
+      product.title.toLowerCase().startsWith(query.toLowerCase())
     );
     // Sending the filtered products as a response
     res.json(filteredProducts);

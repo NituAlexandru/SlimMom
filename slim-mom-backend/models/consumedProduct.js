@@ -12,12 +12,28 @@ const consumedProductSchema = new mongoose.Schema({
     required: true,
   },
   productId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Product",
+    required: true,
+  },
+  productName: {
+    type: String,
     required: true,
   },
   quantity: {
     type: Number,
+    required: true,
+  },
+  weight: {
+    type: Number,
+    required: true,
+  },
+  calories: {
+    type: Number,
+    required: true,
+  },
+  groupBloodNotAllowed: {
+    type: [Boolean],
     required: true,
   },
 });

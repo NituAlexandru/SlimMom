@@ -90,7 +90,16 @@ export const loginUser = async (req, res) => {
       await user.save();
     }
 
-    res.status(200).json({ token }); // Sending a 200 response with the token
+    res.status(200).json({
+      token,
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        dailyCalories: user.dailyCalories,
+        nonRecommended: user.nonRecommended,
+      },
+    }); // Sending a 200 response with the token and user data
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ message: "Error logging in", error: error.message }); // Sending a 500 response if an error occurs during login

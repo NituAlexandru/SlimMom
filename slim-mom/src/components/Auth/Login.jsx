@@ -12,7 +12,8 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate("/calculator"); // Redirecționează către pagina CalculatorPage după autentificare
+      navigate("/diary"); // Redirecționează către pagina diary după autentificare
+      console.log("Login successful, navigating to /diary");
     } catch (error) {
       console.error("Login error:", error);
     }

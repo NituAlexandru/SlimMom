@@ -3,71 +3,72 @@ import PropTypes from "prop-types";
 import api from "../services/api";
 import { AuthContext } from "./AuthContext";
 
-// Creăm contextul pentru înregistrare
+// Creating context for registration
 export const RegContext = createContext();
 
-// Reducer pentru gestionarea stării de înregistrare
+// Reducer to manage registration state
 const regReducer = (state, action) => {
   switch (action.type) {
-    case "REGISTER": // Gestionarea acțiunii de înregistrare
+    case "REGISTER": // Handling the registration action
       return {
         ...state,
-        user: action.payload.user, // Setarea datelor utilizatorului
-        token: action.payload.token, // Setarea tokenului
+        user: action.payload.user, // Setting the user data
+        token: action.payload.token, // Setting the token
       };
     default:
       return state;
   }
 };
 
-// RegProvider component pentru a furniza contextul de înregistrare copiilor săi
+// RegProvider component to provide the registration context to its children
 export const RegProvider = ({ children }) => {
   const [state, dispatch] = useReducer(regReducer, {
     user: null,
     token: null,
-  });
+  }); // Initializing the reducer with the initial state
 
-  const { login } = useContext(AuthContext); // Accesarea funcției de login din AuthContext
+  const { login } = useContext(AuthContext); // Accessing the login function from AuthContext
 
-  // Funcția pentru înregistrare
-  const register = async (name, email, password) => {
+  // Function to handle registration
+  const register = async (name, email, password, calorieData) => {
     try {
-      // Trimiterea unei cereri POST la endpoint-ul de înregistrare
+      // Sending a POST request to the registration endpoint
       const response = await api.post("/auth/register", {
         name,
         email,
         password,
+        ...calorieData,
       });
 
-      // Destructurarea tokenului și utilizatorului din datele de răspuns
+      // Destructuring the token and user from the response data
       const { token, result: user } = response.data;
 
-      // Logarea tokenului în consola pentru debug
+      // Logging the token for debugging purposes
       console.log("Token from response:", token);
 
-      // Stocarea tokenului în localStorage
+      // Storing the token in localStorage
       localStorage.setItem("token", token);
 
-      // Apelarea funcției de login pentru a seta starea de autentificare
+      // Calling the login function to set the authentication state
       await login(email, password);
 
-      // Opțional: setarea stării de înregistrare (acest pas ar putea fi redundant)
+      // Optionally, setting the registration state (this step might be redundant)
       dispatch({ type: "REGISTER", payload: { user, token } });
     } catch (error) {
-      // Logarea erorilor de înregistrare
+      // Logging any registration errors
       console.error("Register error:", error);
     }
   };
 
   return (
-    // Furnizarea stării de înregistrare și funcțiilor consumatorilor contextului
+    // Providing the registration state and functions to the context's consumers
     <RegContext.Provider value={{ ...state, register }}>
       {children}
     </RegContext.Provider>
   );
 };
 
-// Validarea tipurilor de prop pentru componenta RegProvider
+// Prop types validation for the RegProvider component
 RegProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

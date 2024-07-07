@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  dailyCalories: {
+    type: Number,
+    default: 1800,
+  },
+  nonRecommended: {
+    type: [String],
+    default: [],
+  },
 });
 
 // Creating a model from the schema

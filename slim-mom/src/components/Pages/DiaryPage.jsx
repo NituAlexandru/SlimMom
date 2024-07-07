@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../../context/useAuth"; // Import custom hook for authentication context
-import DiaryAddProductForm from "../Diary/DiaryAddProductForm"; // Import form component for adding products
-import DiaryProductsList from "../Diary/DiaryProductsList"; // Import component for displaying the list of products
+import { useState, useEffect, useCallback } from "react";
+import { useAuth } from "../../context/useAuth";
+import DiaryAddProductForm from "../Diary/DiaryAddProductForm";
+import DiaryProductsList from "../Diary/DiaryProductsList";
+import DiarySummary from "../Diary/DiarySummary";
 import {
   getUserProducts,
   addUserProduct,
   deleteUserProduct,
-} from "../../services/diaryService"; // Import service functions for API calls
-import styles from "./DiaryPage.module.scss"; // Import CSS module for styling
+} from "../../services/diaryService";
+import styles from "./DiaryPage.module.scss";
 
 // Main component for the Diary page
 const DiaryPage = () => {
@@ -15,6 +16,32 @@ const DiaryPage = () => {
   const [products, setProducts] = useState([]); // State to store the list of products
   const [loading, setLoading] = useState(true); // State to handle the loading state
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10)); // State to store the selected date, default is today's date
+  const [summary, setSummary] = useState({
+    left: 0,
+    consumed: 0,
+    dailyRate: 0,
+    percentageOfNormal: 0,
+    nonRecommended: [],
+  }); // State to store the summary of calorie intake
+
+  // Function to calculate the summary of calorie intake
+  const calculateSummary = useCallback(
+    (products, dailyRate) => {
+      const consumed = products.reduce((acc, product) => {
+        return acc + (product.quantity / product.weight) * product.calories;
+      }, 0); // Calculate total consumed calories
+      const left = dailyRate - consumed; // Calculate remaining calories
+      const percentageOfNormal = ((consumed / dailyRate) * 100).toFixed(2); // Calculate percentage of daily rate consumed
+      return {
+        left,
+        consumed,
+        dailyRate,
+        percentageOfNormal: Number(percentageOfNormal),
+        nonRecommended: user.nonRecommended || [], // Get non-recommended foods
+      };
+    },
+    [user.nonRecommended]
+  );
 
   // useEffect hook to fetch products when user, date, or token changes
   useEffect(() => {
@@ -24,19 +51,26 @@ const DiaryPage = () => {
         console.log("Fetched products:", fetchedProducts); // Log fetched products
         setProducts(fetchedProducts); // Update state with fetched products
         setLoading(false); // Set loading to false after fetching products
+
+        const dailyRate = user.dailyCalories || 2000; // Default to 2000 if not set
+        setSummary(calculateSummary(fetchedProducts, dailyRate)); // Calculate and set summary
       } catch (error) {
         console.error("Error fetching products:", error); // Log any error that occurs during fetching
       }
     };
     fetchProducts(); // Call the fetchProducts function
-  }, [user, date, token]);
+  }, [user, date, token, calculateSummary]); // Dependencies array for useEffect
 
   // Function to handle adding a product
   const handleAddProduct = async (product) => {
     try {
       const productWithUser = { ...product, date, userId: user.id }; // Include userId and date in the product data
       const newProduct = await addUserProduct(productWithUser, token); // Add the product via API
-      setProducts([...products, newProduct]); // Update state with the new product
+      const updatedProducts = [...products, newProduct]; // Update state with the new product
+      setProducts(updatedProducts); // Update state with the updated product list
+
+      const dailyRate = user.dailyCalories || 2000; // Default to 2000 if not set
+      setSummary(calculateSummary(updatedProducts, dailyRate)); // Calculate and set summary
     } catch (error) {
       console.error("Error adding product:", error); // Log any error that occurs during adding
     }
@@ -46,7 +80,13 @@ const DiaryPage = () => {
   const handleDeleteProduct = async (productId) => {
     try {
       await deleteUserProduct(productId, token); // Delete the product via API
-      setProducts(products.filter((product) => product._id !== productId)); // Update state to remove the deleted product
+      const updatedProducts = products.filter(
+        (product) => product._id !== productId
+      ); // Update state to remove the deleted product
+      setProducts(updatedProducts); // Update state with the updated product list
+
+      const dailyRate = user.dailyCalories || 2000; // Default to 2000 if not set
+      setSummary(calculateSummary(updatedProducts, dailyRate)); // Calculate and set summary
     } catch (error) {
       console.error("Error deleting product:", error); // Log any error that occurs during deleting
     }
@@ -60,19 +100,28 @@ const DiaryPage = () => {
   // Render the Diary page
   return (
     <div className={styles.diaryPage}>
-      <h2>Diary</h2>
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)} // Update date state on date change
-      />
-      <DiaryAddProductForm onSubmit={handleAddProduct} />{" "}
-      {/* Form to add products */}
-      {loading ? (
-        <div>Loading products...</div> // Show loading message while fetching products
-      ) : (
-        <DiaryProductsList products={products} onDelete={handleDeleteProduct} /> // Show list of products
-      )}
+      <div className={styles.leftPane}>
+        <h2>Diary</h2>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)} // Update date state on date change
+        />
+        <DiaryAddProductForm onSubmit={handleAddProduct} />{" "}
+        {/* Form to add products */}
+        {loading ? (
+          <div>Loading products...</div> // Show loading message while fetching products
+        ) : (
+          <DiaryProductsList
+            products={products}
+            onDelete={handleDeleteProduct} // Pass delete handler to the list component
+          />
+        )}
+      </div>
+      <div className={styles.rightPane}>
+        <DiarySummary date={date} summary={summary} />{" "}
+        {/* Display the summary */}
+      </div>
     </div>
   );
 };

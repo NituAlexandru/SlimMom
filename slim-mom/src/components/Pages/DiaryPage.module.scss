@@ -1,0 +1,15 @@
+
+.diaryPage {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.leftPane {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.rightPane {
+  width: 300px;
+}

@@ -1,20 +1,41 @@
-import PropTypes from "prop-types";
-import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext"; // Importing AuthContext
+import { useContext, useEffect, useCallback } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import Modal from "react-modal";
+import PropTypes from "prop-types";
 
-// The ResultModal component, which displays the calculated daily calorie intake and non-recommended foods.
 const ResultModal = ({ isOpen, onRequestClose, result }) => {
-  const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // Accessing user from AuthContext
+  const navigate = useNavigate(); // Hook for navigation
+  const { user } = useContext(AuthContext); // Get current user from AuthContext
 
-  // Function to handle the redirection based on authentication status
+  // Function to get unique categories from the nonRecommended foods
+  const uniqueCategories = useCallback(() => {
+    const categories = new Set();
+    result.nonRecommended.forEach((food) => {
+      categories.add(food.categories);
+    });
+    return Array.from(categories);
+  }, [result.nonRecommended]);
+
+  // useEffect to store calorie calculation in localStorage if user is not logged in
+  useEffect(() => {
+    if (!user && isOpen) {
+      localStorage.setItem(
+        "calorieCalculation",
+        JSON.stringify({
+          dailyCalories: result.dailyCalories,
+          nonRecommended: uniqueCategories(),
+        })
+      );
+    }
+  }, [user, isOpen, result, uniqueCategories]);
+
+  // Function to handle redirect based on user login status
   const handleRedirect = () => {
     if (user) {
-      navigate("/diary"); // Redirect to DiaryPage if the user is logged in
+      navigate("/diary");
     } else {
-      navigate("/register"); // Redirect to RegisterPage if the user is not logged in
+      navigate("/register");
     }
   };
 
@@ -25,8 +46,8 @@ const ResultModal = ({ isOpen, onRequestClose, result }) => {
       <h4>Foods you should not eat</h4>
       <ul>
         {result.nonRecommended && result.nonRecommended.length > 0 ? (
-          result.nonRecommended.map((food, index) => (
-            <li key={index}>{food.title}</li>
+          uniqueCategories().map((category, index) => (
+            <li key={index}>{category}</li>
           ))
         ) : (
           <li>No specific foods listed</li>
@@ -37,7 +58,6 @@ const ResultModal = ({ isOpen, onRequestClose, result }) => {
   );
 };
 
-// Prop type validation to ensure the component receives the correct props
 ResultModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
@@ -45,10 +65,10 @@ ResultModal.propTypes = {
     dailyCalories: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     nonRecommended: PropTypes.arrayOf(
       PropTypes.shape({
-        title: PropTypes.string.isRequired,
+        categories: PropTypes.string.isRequired,
       })
     ),
   }).isRequired,
 };
 
-export default ResultModal; // Exports the ResultModal component
+export default ResultModal;

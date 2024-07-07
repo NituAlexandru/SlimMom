@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
-import api from "../services/api";
 import PropTypes from "prop-types";
+import api from "../services/api";
 
 // Creating the AuthContext to be used for authentication state management
 export const AuthContext = createContext();
@@ -30,14 +30,18 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
     token: null,
-  });
+  }); // Initializing the reducer with the initial state
 
   // Function to handle login
-  const login = async (email, password) => {
+  const login = async (email, password, calorieCalculation) => {
     try {
       // Sending a POST request to the login endpoint
-      const response = await api.post("/auth/login", { email, password });
-      const { token } = response.data;
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+        calorieCalculation,
+      });
+      const { token } = response.data; // Extracting the token from the response
 
       // Sending a GET request to retrieve user data
       const user = await api.get("/auth/user", {
@@ -87,9 +91,9 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem("token");
         }
       };
-      fetchUser();
+      fetchUser(); // Call the fetchUser function
     }
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
   return (
     // Providing the authentication state and functions to the context's consumers

@@ -1,0 +1,25 @@
+.summary {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.summary h2,
+.summary h3 {
+  color: #333;
+}
+
+.summary p,
+.summary ul {
+  color: #666;
+}
+
+.summary ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.summary ul li {
+  margin: 5px 0;
+}

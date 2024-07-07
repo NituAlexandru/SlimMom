@@ -53,9 +53,9 @@ export const addConsumedProduct = async (req, res) => {
 
 // Controller function to handle deleting a consumed product
 export const deleteConsumedProduct = async (req, res) => {
-  const { id } = req.params;
-  const token = req.headers.authorization.split(" ")[1];
-  const userId = getUserIdFromToken(token);
+  const { id } = req.params; // Extracting the product ID from the request parameters
+  const token = req.headers.authorization.split(" ")[1]; // Extracting the token from the authorization header
+  const userId = getUserIdFromToken(token); // Getting the user ID from the token
 
   try {
     // Finding and deleting the consumed product by its ID and user ID
@@ -70,7 +70,7 @@ export const deleteConsumedProduct = async (req, res) => {
 
 // Controller function to handle fetching consumed products by user and date
 export const getConsumedProducts = async (req, res) => {
-  const { date } = req.params; // Extracting the product ID from the request parameters
+  const { date } = req.params; // Extracting the date from the request parameters
   const token = req.headers.authorization.split(" ")[1]; // Extracting the token from the authorization header
   const userId = getUserIdFromToken(token); // Getting the user ID from the token
 

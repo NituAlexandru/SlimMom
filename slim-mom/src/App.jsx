@@ -50,7 +50,15 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/calculator" element={<CalculatorPage />} />
+            <Route
+              path="/calculator"
+              element={
+                <PrivateRoute>
+                  <CalculatorPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </RegProvider>
       </AuthProvider>

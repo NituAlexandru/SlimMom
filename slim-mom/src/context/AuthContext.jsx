@@ -47,9 +47,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Function to handle logout
-  const logout = () => {
-    dispatch({ type: "LOGOUT" });
-    localStorage.removeItem("token");
+  const logout = async () => {
+    try {
+      await api.post("/auth/logout");
+      dispatch({ type: "LOGOUT" });
+      localStorage.removeItem("token");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   // Function to update user profile

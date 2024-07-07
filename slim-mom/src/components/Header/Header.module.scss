@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Ensures no underline on link */
+}
+
+.logoImage {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.navLink {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.navButton {
+  margin-left: 20px;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.navButton:hover {
+  text-decoration: underline;
+}

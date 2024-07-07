@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import { createContext, useReducer, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import api from "../services/api";
 
@@ -29,8 +29,8 @@ const authReducer = (state, action) => {
 // AuthProvider component to provide the authentication context to its children
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
-    user: null,
-    token: null,
+    user: JSON.parse(localStorage.getItem("user")) || null,
+    token: localStorage.getItem("token") || null,
   });
 
   // Function to handle login
@@ -41,25 +41,23 @@ export const AuthProvider = ({ children }) => {
 
       dispatch({ type: "LOGIN", payload: { user, token } });
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
       console.error("Login error:", error);
     }
   };
 
   // Function to handle logout
-  const logout = async () => {
-    try {
-      await api.post("/auth/logout");
-      dispatch({ type: "LOGOUT" });
-      localStorage.removeItem("token");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   // Function to update user profile
   const updateUserProfile = (user) => {
     dispatch({ type: "UPDATE_PROFILE", payload: { user, token: state.token } });
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   // useEffect hook to check if a token exists in localStorage on initial render
@@ -76,9 +74,11 @@ export const AuthProvider = ({ children }) => {
           const user = response.data;
 
           dispatch({ type: "LOGIN", payload: { user, token } });
+          localStorage.setItem("user", JSON.stringify(user));
         } catch (error) {
           console.error("Fetch user error:", error);
           localStorage.removeItem("token");
+          localStorage.removeItem("user");
         }
       };
       fetchUser();
@@ -97,4 +97,9 @@ export const AuthProvider = ({ children }) => {
 // Prop types validation for the AuthProvider component
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
+};
+
+// Custom hook to use auth context
+export const useAuth = () => {
+  return useContext(AuthContext);
 };

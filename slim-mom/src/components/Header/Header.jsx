@@ -1,26 +1,39 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/useAuth";
+import { useAuth } from "../../context/AuthContext";
 import PropTypes from "prop-types";
-import styles from "./Header.module.scss";
+import styles from "./Header.module.scss"; // Import your CSS module for styling
 
-const Header = () => {
-  const { user, logout } = useAuth();
+const Header = ({ logout }) => {
+  const { user } = useAuth(); // Accessing user from the auth context
 
   return (
     <header className={styles.header}>
+      <Link to="/" className={styles.logo}>
+        <img src="/path/to/logo.png" alt="Logo" className={styles.logoImage} />
+        <span className={styles.logoText}>SlimMom</span>
+      </Link>
       <nav>
         {user ? (
           <>
-            <Link to="/diary">Diary</Link>
-            <Link to="/calculator">Calculator</Link>
-            <span>{user.name}</span>
-            <button onClick={logout}>Logout</button>
+            <Link to="/diary" className={styles.navLink}>
+              Diary
+            </Link>
+            <Link to="/calculator" className={styles.navLink}>
+              Calculator
+            </Link>
+            <span className={styles.navLink}>{user.name}</span>
+            <button onClick={logout} className={styles.navButton}>
+              Exit
+            </button>
           </>
         ) : (
           <>
-            <Link to="/">Home</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/login" className={styles.navLink}>
+              Log in
+            </Link>
+            <Link to="/register" className={styles.navLink}>
+              Register
+            </Link>
           </>
         )}
       </nav>
@@ -29,8 +42,7 @@ const Header = () => {
 };
 
 Header.propTypes = {
-  user: PropTypes.object,
-  logout: PropTypes.func,
+  logout: PropTypes.func.isRequired,
 };
 
 export default Header;

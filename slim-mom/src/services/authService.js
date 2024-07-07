@@ -23,3 +23,14 @@ export const logout = async () => {
   // Removing the token from localStorage to log out the user
   localStorage.removeItem("token");
 };
+
+export const updateUserProfile = async (profileData) => {
+  try {
+    // Sending a POST request to the API to update the user profile
+    const response = await api.post("/auth/updateUserProfile", profileData);
+    return response.data; // Returning the data from the response
+  } catch (error) {
+    console.error("Error updating user profile:", error); // Logging any errors that occur
+    throw error; // Throwing the error to be handled by the caller
+  }
+};

@@ -18,7 +18,7 @@ const authMiddleware = (req, res, next) => {
   try {
     // Verifying the token and extracting the user data
     const decoded = jwt.verify(token, SECRET_KEY);
-    console.log("Decoded user data from token:", decoded); // Logging the decoded token data
+    // console.log("Decoded user data from token:", decoded); // Logging the decoded token data
     req.user = decoded; // Attaching the decoded user data to the request object
     next(); // Passing control to the next middleware function
   } catch (error) {

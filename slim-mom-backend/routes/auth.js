@@ -4,6 +4,7 @@ import {
   loginUser,
   logoutUser,
   getUser,
+  updateUserProfile,
 } from "../controllers/authController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
@@ -21,4 +22,7 @@ router.post("/logout", logoutUser);
 // Route to get user details
 router.get("/user", authMiddleware, getUser);
 
-export default router; 
+// Route to update user profile
+router.post("/updateUserProfile", authMiddleware, updateUserProfile);
+
+export default router;

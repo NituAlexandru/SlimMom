@@ -1,12 +1,14 @@
+// src/components/Common/ResultModal.jsx
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useCallback } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
+import { updateUserProfile as updateProfileService } from "../../services/authService"; // Importing the updateUserProfile function
 
 const ResultModal = ({ isOpen, onRequestClose, result }) => {
   const navigate = useNavigate(); // Hook for navigation
-  const { user } = useContext(AuthContext); // Get current user from AuthContext
+  const { user, token, updateUserProfile } = useContext(AuthContext); // Get current user from AuthContext
 
   // Function to get unique categories from the nonRecommended foods
   const uniqueCategories = useCallback(() => {
@@ -31,9 +33,33 @@ const ResultModal = ({ isOpen, onRequestClose, result }) => {
   }, [user, isOpen, result, uniqueCategories]);
 
   // Function to handle redirect based on user login status
-  const handleRedirect = () => {
+  const handleRedirect = async () => {
     if (user) {
-      navigate("/diary");
+      try {
+        console.log("Attempting to update user profile with data:", {
+          dailyCalories: result.dailyCalories,
+          nonRecommended: uniqueCategories(),
+        });
+        console.log("Using token:", token);
+
+        const response = await updateProfileService({
+          dailyCalories: result.dailyCalories,
+          nonRecommended: uniqueCategories(),
+        });
+
+        console.log("User profile update response:", response);
+
+        // Update user profile in context
+        updateUserProfile({
+          ...user,
+          dailyCalories: result.dailyCalories,
+          nonRecommended: uniqueCategories(),
+        });
+
+        navigate("/diary");
+      } catch (error) {
+        console.error("Error updating user profile:", error);
+      }
     } else {
       navigate("/register");
     }

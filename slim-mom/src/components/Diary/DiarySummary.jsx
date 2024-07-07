@@ -6,10 +6,10 @@ const DiarySummary = ({ date, summary }) => {
   return (
     <div className={styles.summary}>
       <h2>Summary for {date}</h2>
-      <p>Left: {summary.left} kcal</p>
-      <p>Consumed: {summary.consumed} kcal</p>
-      <p>Daily rate: {summary.dailyRate} kcal</p>
-      <p>n% of normal: {summary.percentageOfNormal} %</p>
+      <p>Left: {Math.round(summary.left)} kcal</p>
+      <p>Consumed: {Math.round(summary.consumed)} kcal</p>
+      <p>Daily rate: {Math.round(summary.dailyRate)} kcal</p>
+      <p>n% of normal: {Number(summary.percentageOfNormal).toFixed(0)} %</p>
       <h3>Food not recommended</h3>
       <ul>
         {summary.nonRecommended.map((food, index) => (

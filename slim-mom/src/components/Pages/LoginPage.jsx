@@ -1,10 +1,10 @@
-import Login from "../Auth/Login";
+import LoginForm from "../Auth/Login";
+import styles from "./LoginPage.module.scss";
 
 const LoginPage = () => {
   return (
-    <div>
-      <h1>Login</h1>
-      <Login />
+    <div className={styles.logincontainer}>
+      <LoginForm />
     </div>
   );
 };

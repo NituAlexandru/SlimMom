@@ -2,6 +2,7 @@ import { useState } from "react";
 // Folosim api-ul configurat
 import CalculatorCalorieForm from "../Forms/CalculatorCalorieForm";
 import api from "../../services/api";
+import styles from "./MainPage.module.scss";
 
 // MainPage component to display the calorie calculator form and handle its logic
 const MainPage = () => {
@@ -26,7 +27,7 @@ const MainPage = () => {
   };
 
   return (
-    <div>
+    <div className={styles.mainPage}>
       <h1>Calculate your daily calorie intake right now</h1>
       {/* Rendering the CalculatorCalorieForm component */}
       <CalculatorCalorieForm

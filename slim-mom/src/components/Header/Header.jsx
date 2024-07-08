@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import PropTypes from "prop-types";
 import styles from "./Header.module.scss"; // Import your CSS module for styling
+import Logo from "./Logo";
 
 const Header = ({ logout }) => {
   const { user } = useAuth(); // Accessing user from the auth context
 
   return (
     <header className={styles.header}>
-      <Link to="/" className={styles.logo}>
-        <img src="/path/to/logo.png" alt="Logo" className={styles.logoImage} />
-        <span className={styles.logoText}>SlimMom</span>
+      <Link to="/" className={styles.logoLink}>
+        <Logo src={Logo} alt="logo" />
       </Link>
       <nav>
         {user ? (
@@ -28,12 +28,22 @@ const Header = ({ logout }) => {
           </>
         ) : (
           <>
-            <Link to="/login" className={styles.navLink}>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? styles.activeNavLink : styles.navLink
+              }
+            >
               Log in
-            </Link>
-            <Link to="/register" className={styles.navLink}>
+            </NavLink>
+            <NavLink
+              to="/register"
+              className={({ isActive }) =>
+                isActive ? styles.activeNavLink : styles.navLink
+              }
+            >
               Register
-            </Link>
+            </NavLink>
           </>
         )}
       </nav>
@@ -42,7 +52,7 @@ const Header = ({ logout }) => {
 };
 
 Header.propTypes = {
-  logout: PropTypes.func.isRequired,
+  logout: PropTypes.func,
 };
 
 export default Header;

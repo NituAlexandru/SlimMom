@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { updateUserProfile as updateProfileService } from "../../services/authService"; // Importing the updateUserProfile function
+import styles from "./ResultModal.module.scss";
 
 const ResultModal = ({ isOpen, onRequestClose, result }) => {
   const navigate = useNavigate(); // Hook for navigation
@@ -66,11 +67,19 @@ const ResultModal = ({ isOpen, onRequestClose, result }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
-      <h2>Your recommended daily calorie intake is</h2>
-      <h3>{result.dailyCalories || "N/A"} Calories</h3>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      className={styles.modalContent}
+      overlayClassName={styles.modalOverlay}
+    >
+      <h2>
+        Your recommended daily <br /> calorie intake is
+      </h2>
+      <h3>{result.dailyCalories.toFixed(0) || "N/A"} Kcal</h3>
+      <hr />
       <h4>Foods you should not eat</h4>
-      <ul>
+      <ol>
         {result.nonRecommended && result.nonRecommended.length > 0 ? (
           uniqueCategories().map((category, index) => (
             <li key={index}>{category}</li>
@@ -78,8 +87,11 @@ const ResultModal = ({ isOpen, onRequestClose, result }) => {
         ) : (
           <li>No specific foods listed</li>
         )}
-      </ul>
+      </ol>
       <button onClick={handleRedirect}>Start losing weight</button>
+      <button onClick={onRequestClose} className={styles.closeButton}>
+        X
+      </button>
     </Modal>
   );
 };

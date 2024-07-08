@@ -16,6 +16,7 @@ import CalculatorPage from "./components/Pages/CalculatorPage";
 import { RegProvider } from "./context/RegContext";
 import Modal from "react-modal";
 import { useEffect } from "react";
+import styles from "./App.module.scss";
 
 // Setting the root element for modals to ensure accessibility
 Modal.setAppElement("#root");
@@ -65,42 +66,46 @@ function App() {
     <Router>
       <AuthProvider>
         <RegProvider>
-          <Header />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route
-              path="/login"
-              element={
-                <PublicRoute>
-                  <LoginPage />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path="/register"
-              element={
-                <PublicRoute>
-                  <RegistrationPage />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path="/diary"
-              element={
-                <PrivateRoute>
-                  <DiaryPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/calculator"
-              element={
-                <PrivateRoute>
-                  <CalculatorPage />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
+          <div className={styles.app}>
+            <Header />
+            <div className={styles.content}>
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route
+                  path="/login"
+                  element={
+                    <PublicRoute>
+                      <LoginPage className={styles.logincontainer} />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/register"
+                  element={
+                    <PublicRoute>
+                      <RegistrationPage />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/diary"
+                  element={
+                    <PrivateRoute>
+                      <DiaryPage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/calculator"
+                  element={
+                    <PrivateRoute>
+                      <CalculatorPage />
+                    </PrivateRoute>
+                  }
+                />
+              </Routes>
+            </div>
+          </div>
         </RegProvider>
       </AuthProvider>
     </Router>

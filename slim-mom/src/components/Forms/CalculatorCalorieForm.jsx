@@ -39,13 +39,16 @@ const CalculatorCalorieForm = ({ onSubmit, result, resetResult }) => {
 
   return (
     <div>
+      <h2>
+        Calculate your daily calorie <br /> intake right now
+      </h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="number"
           name="height"
           value={formData.height}
           onChange={handleChange}
-          placeholder="Height"
+          placeholder="Height *"
           required
         />
         <input
@@ -53,7 +56,7 @@ const CalculatorCalorieForm = ({ onSubmit, result, resetResult }) => {
           name="weight"
           value={formData.weight}
           onChange={handleChange}
-          placeholder="Weight"
+          placeholder="Weight *"
           required
         />
         <input
@@ -61,7 +64,7 @@ const CalculatorCalorieForm = ({ onSubmit, result, resetResult }) => {
           name="age"
           value={formData.age}
           onChange={handleChange}
-          placeholder="Age"
+          placeholder="Age *"
           required
         />
         <input
@@ -69,11 +72,11 @@ const CalculatorCalorieForm = ({ onSubmit, result, resetResult }) => {
           name="desiredWeight"
           value={formData.desiredWeight}
           onChange={handleChange}
-          placeholder="Desired Weight"
+          placeholder="Desired Weight *"
           required
         />
         <div className={styles.bloodTypeSection}>
-          <label>Blood Type *</label>{" "}
+          <label>Blood Type *</label>
           <div className={styles.radioButtons}>
             <label>
               <input
@@ -117,7 +120,7 @@ const CalculatorCalorieForm = ({ onSubmit, result, resetResult }) => {
             </label>
           </div>
         </div>
-        <button type="submit">Calculate</button>
+        <button type="submit">Start losing weight</button>
       </form>
       {result && (
         <ResultModal

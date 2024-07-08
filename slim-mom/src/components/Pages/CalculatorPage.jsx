@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../../services/api"; // Folosim api-ul configurat
 import CalculatorCalorieForm from "../Forms/CalculatorCalorieForm";
+import styles from "./CalculatorPage.module.scss";
 
 // CalculatorPage component to display the calorie calculator form and handle its logic
 const CalculatorPage = () => {
@@ -25,13 +26,14 @@ const CalculatorPage = () => {
   };
 
   return (
-    <div>
-      <h1>Calculator</h1>
-      <CalculatorCalorieForm
-        onSubmit={handleCalculatorSubmit} // Passing the handleCalculatorSubmit function as a prop
-        result={result} // Passing the result state as a prop
-        resetResult={resetResult} // Passing the resetResult function as a prop
-      />
+    <div className={styles.calculatorPage}>
+      <div className={styles.formContainer}>
+        <CalculatorCalorieForm
+          onSubmit={handleCalculatorSubmit} // Passing the handleCalculatorSubmit function as a prop
+          result={result} // Passing the result state as a prop
+          resetResult={resetResult} // Passing the resetResult function as a prop
+        />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useReg } from "../../context/useReg";
+import styles from "./Register.module.scss";
 
 const Register = () => {
   const [name, setName] = useState(""); // State for name input
@@ -30,33 +31,36 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)} // Update name state on input change
-        />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} // Update email state on input change
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} // Update password state on input change
-        />
-      </div>
-      <button type="submit">Register</button>
-    </form>
+    <div className={styles.registerPage}>
+      <h1>Register</h1>
+      <form onSubmit={handleSubmit} className={styles.registerForm}>
+        <div>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)} // Update name state on input change
+            placeholder="Name *"
+          />
+        </div>
+        <div>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} // Update email state on input change
+            placeholder="Email *"
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} // Update password state on input change
+            placeholder="Password *"
+          />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 };
 

@@ -1,9 +1,9 @@
 import Register from "../Auth/Register";
+import styles from "./RegistrationPage.module.scss";
 
 const RegistrationPage = () => {
   return (
-    <div>
-      <h1>Register</h1>
+    <div className={styles.registerContainer}>
       <Register />
     </div>
   );

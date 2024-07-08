@@ -1,0 +1,179 @@
+h2 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #212121;
+  @media (min-width: 768px) {
+    font-size: 34px;
+  }
+}
+.form {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "height"
+    "age"
+    "weight"
+    "desiredWeight"
+    "bloodType"
+    "button";
+  width: 240px;
+
+  input,
+  .bloodTypeSection {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 5px;
+    padding-left: 0;
+    outline: none;
+
+    &::placeholder {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: #9b9faa;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: #9b9faa;
+    }
+
+    div {
+      border-bottom: none;
+    }
+  }
+
+  .bloodTypeSection {
+    border-bottom: none;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "height desiredWeight"
+      "age bloodType"
+      "weight ."
+      "button .";
+    width: 100%;
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "height desiredWeight"
+      "age bloodType"
+      "weight ."
+      ". button";
+    width: 100%;
+  }
+  input[name="height"] {
+    grid-area: height;
+    margin-top: 2rem;
+  }
+
+  input[name="weight"] {
+    grid-area: weight;
+    margin-top: 2rem;
+  }
+
+  input[name="age"] {
+    grid-area: age;
+  }
+
+  input[name="desiredWeight"] {
+    grid-area: desiredWeight;
+  }
+
+  .bloodTypeSection {
+    grid-area: bloodType;
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .radioButtons {
+      display: flex;
+      gap: 1rem;
+
+      label {
+        display: flex;
+        align-items: center;
+
+        input[type="radio"] {
+          appearance: none;
+          width: 1rem;
+          height: 1rem;
+          border: 2px solid #e0e0e0;
+          border-radius: 50%;
+          outline: none;
+          cursor: pointer;
+          position: relative;
+          margin-right: 0.5rem;
+          background-color: white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+            inset 0 2px 3px rgba(0, 0, 0, 0.1);
+
+          &:checked {
+            border-color: #ff6b08;
+            background-color: #ff6b08;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+              inset 0 2px 3px rgba(0, 0, 0, 0.1);
+          }
+
+          &:checked::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #ff6b08;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(0.5);
+            box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.3);
+          }
+
+          &:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2),
+              inset 0 2px 3px rgba(0, 0, 0, 0.1);
+          }
+
+          &:checked:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2),
+              inset 0 2px 3px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    border: none;
+    border-radius: 30px;
+    width: 210px;
+    height: 43px;
+    box-shadow: 0 4px 10px 0 rgba(252, 132, 45, 0.5);
+    background-color: #ff6b08;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: #fff;
+    grid-area: button;
+    cursor: pointer;
+    margin-top: 1.4rem;
+
+    &:hover {
+      background-color: rgb(230, 92, 0);
+      box-shadow: 0 4px 8px rgba(230, 92, 0);
+    }
+  }
+}

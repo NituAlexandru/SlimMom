@@ -1,0 +1,56 @@
+.registerPage {
+  h1 {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fc842d;
+    margin-bottom: 45px;
+  }
+  .registerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    input {
+      width: 100%;
+      max-width: 320px;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px;
+      padding-left: 0;
+      color: #fc842d;
+
+      &::placeholder {
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        color: #9b9faa;
+      }
+    }
+
+    button {
+      border-radius: 30px;
+      padding: 13px 48px;
+      width: 181px;
+      height: 44px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-align: center;
+      color: #e65c00;
+      cursor: pointer;
+      border: solid 1px #fc842d;
+      background-color: #fff;
+
+      &:hover {
+        background: #e65c00;
+        color: #fff;
+      }
+    }
+  }
+  @media (min-width: 1024px) {
+    padding-left: 20px;
+  }
+}

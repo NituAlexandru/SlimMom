@@ -9,50 +9,52 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <Link to="/" className={styles.logoLink}>
-        <Logo src={Logo} alt="logo" />
-      </Link>
-      <nav>
-        {user ? (
-          <>
-            <div className={styles.diaryCalculatorContainer}>
-              <Link to="/diary" className={styles.navLink}>
-                Diary
-              </Link>
-              <Link to="/calculator" className={styles.navLink}>
-                Calculator
-              </Link>
-            </div>
-            <div className={styles.userContainer}>
-              {" "}
-              <span className={styles.navLink}>{user.name}</span>
-              <hr />
-              <button onClick={logout} className={styles.navButton}>
-                Exit
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive ? styles.activeNavLink : styles.navLink
-              }
-            >
-              Log in
-            </NavLink>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive ? styles.activeNavLink : styles.navLink
-              }
-            >
-              Register
-            </NavLink>
-          </>
-        )}
-      </nav>
+      <div className={styles.headerContent}>
+        <Link to="/" className={styles.logoLink}>
+          <Logo src={Logo} alt="logo" />
+        </Link>
+        <nav>
+          {user ? (
+            <>
+              <div className={styles.diaryCalculatorContainer}>
+                <Link to="/diary" className={styles.navLink}>
+                  Diary
+                </Link>
+                <Link to="/calculator" className={styles.navLink}>
+                  Calculator
+                </Link>
+              </div>
+              <div className={styles.userContainer}>
+                {" "}
+                <span className={styles.navLink}>{user.name}</span>
+                <hr />
+                <button onClick={logout} className={styles.navButton}>
+                  Exit
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? styles.activeNavLink : styles.navLink
+                }
+              >
+                Log in
+              </NavLink>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  isActive ? styles.activeNavLink : styles.navLink
+                }
+              >
+                Register
+              </NavLink>
+            </>
+          )}
+        </nav>
+      </div>
     </header>
   );
 };

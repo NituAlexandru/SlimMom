@@ -1,20 +1,27 @@
 .header {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 50px;
+  width: 100%;
   padding: 1rem;
   background-color: #fff;
   border-bottom: 2px solid #e0e0e0;
 
-  @media (min-width: 768px) {
+  .headerContent {
+    display: flex;
     justify-content: space-between;
-  }
-  @media (min-width: 1024px) {
-    justify-content: left;
-    padding-top: 80px;
-    padding-left: 50px;
-    border-bottom: none;
+    align-items: center;
+    max-width: 1200px; // Adjust this value based on your layout requirements
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem; // Add some padding to the sides for spacing
+
+    @media (min-width: 768px) {
+      justify-content: space-between;
+    }
+    @media (min-width: 1024px) {
+      justify-content: left;
+      padding-top: 80px;
+      padding-left: 50px;
+      border-bottom: none;
+    }
   }
 
   .navLink {
@@ -50,8 +57,8 @@
       z-index: 3;
 
       @media (min-width: 768px) {
-        top: -22px;
-        right: 150px;
+        top: 55px;
+        right: 66px;
       }
       @media (min-width: 1024px) {
         position: relative;
@@ -65,7 +72,8 @@
       background-color: #e0e0e0;
     }
     .diaryCalculatorContainer {
-      display: none;
+      display: flex;
+      gap: 10px;
 
       @media (min-width: 1024px) {
         display: flex;

@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import styles from "./Header.module.scss"; // Import your CSS module for styling
 import Logo from "./Logo";
 
-const Header = ({ logout }) => {
-  const { user } = useAuth(); // Accessing user from the auth context
+const Header = () => {
+  const { user, logout } = useAuth(); // Accessing user from the auth context
 
   return (
     <header className={styles.header}>

@@ -1,0 +1,85 @@
+.productList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.productItem {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: 0.5rem 0;
+  grid-column-gap: 5px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+      "name delete"
+      "quantity delete"
+      "calories delete";
+  }
+
+  & > .productName {
+    grid-area: name;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: #212121;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 140px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+
+    &:hover::before {
+      content: attr(data-fullname);
+      position: absolute;
+      white-space: nowrap;
+      background: #212121;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      top: -2.5rem;
+      left: 0;
+      z-index: 10;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+
+  & > .productQuantity,
+  & > .productCalories {
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: #9b9faa;
+    text-align: right;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  & > .productQuantity {
+    grid-area: quantity;
+    width: 45px;
+  }
+
+  & > .productCalories {
+    grid-area: calories;
+    width: 80px;
+  }
+
+  & > .deleteButton {
+    grid-area: delete;
+    background: none;
+    border: none;
+    color: #9b9faa;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: #ff6b08;
+    }
+  }
+}

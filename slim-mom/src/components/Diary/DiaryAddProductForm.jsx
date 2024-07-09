@@ -57,25 +57,6 @@ const DiaryAddProductForm = ({ onSubmit }) => {
         placeholder="Enter product name"
         required
       />
-      <ul className={styles.dropdown}>
-        {searchResults.map((product, index) => {
-          const key = product._id.$oid || index; // Unique key for each product
-          return (
-            <li
-              key={key}
-              onClick={() => {
-                setProductName(product.title);
-                setProductId(key);
-                setWeight(product.weight);
-                setCalories(product.calories);
-                setSearchResults([]);
-              }}
-            >
-              {product.title}
-            </li>
-          );
-        })}
-      </ul>
       <input
         type="number"
         value={grams}
@@ -83,7 +64,28 @@ const DiaryAddProductForm = ({ onSubmit }) => {
         placeholder="Grams"
         required
       />
-      <button type="submit">Add</button>
+      <button type="submit">+</button>
+      {searchResults.length > 0 && (
+        <ul className={styles.dropdown}>
+          {searchResults.map((product, index) => {
+            const key = product._id.$oid || index;
+            return (
+              <li
+                key={key}
+                onClick={() => {
+                  setProductName(product.title);
+                  setProductId(key);
+                  setWeight(product.weight);
+                  setCalories(product.calories);
+                  setSearchResults([]);
+                }}
+              >
+                {product.title}
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </form>
   );
 };

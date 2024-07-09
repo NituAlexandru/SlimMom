@@ -97,11 +97,11 @@ const DiaryPage = () => {
   return (
     <div className={styles.diaryPage}>
       <div className={styles.leftPane}>
-        <h2>Diary</h2>
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          className={styles.dateInput}
         />
         <DiaryAddProductForm onSubmit={handleAddProduct} />
         {loading ? (

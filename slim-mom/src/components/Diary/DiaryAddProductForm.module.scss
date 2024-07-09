@@ -1,0 +1,115 @@
+.formContainer {
+  width: 320px;
+  padding-left: 20px;
+
+  @media (min-width: 768px) {
+    width: 760px;
+    padding-left: 0;
+  }
+  @media (min-width: 1024px) {
+    width: 690px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 240px;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  input {
+    width: 240px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: #fc842d;
+  }
+  input,
+  .quantitySection {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 5px;
+    padding-left: 0;
+    outline: none;
+
+    &::placeholder {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: #9b9faa;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: #9b9faa;
+    }
+
+    div {
+      border-bottom: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+  }
+  @media (min-width: 1024px) {
+  }
+
+  button {
+    border: none;
+    border-radius: 30px;
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 4px 10px 0 rgba(252, 132, 45, 0.5);
+    background-color: #ff6b08;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: #fff;
+    grid-area: button;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(230, 92, 0);
+      box-shadow: 0 4px 8px rgba(230, 92, 0);
+    }
+  }
+  .dropdown {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 28px;
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #eb8339;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    border: 1px solid #e0e0e0;
+    border-radius: 0 0 0.5rem 0.5rem;
+    color: #fff;
+
+    li {
+      padding-left: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: #fff;
+
+      &:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+}

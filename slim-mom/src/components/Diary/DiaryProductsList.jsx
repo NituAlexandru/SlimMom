@@ -6,17 +6,30 @@ const DiaryProductsList = ({ products, onDelete }) => {
   return (
     <ul className={styles.productList}>
       {products.map((product, index) => {
-        const key = product._id || index; // Unique key for each product
-        const quantity = parseFloat(product.quantity); // Convert quantity to a float
-        const weight = parseFloat(product.weight); // Convert weight to a float
-        const caloriesPer100g = parseFloat(product.calories); // Convert calories to a float
-        const caloriesConsumed = (quantity / weight) * caloriesPer100g; // Calculate consumed calories
+        const key = product._id || index;
+        const quantity = parseFloat(product.quantity);
+        const weight = parseFloat(product.weight);
+        const caloriesPer100g = parseFloat(product.calories);
+        const caloriesConsumed = (quantity / weight) * caloriesPer100g;
 
         return (
-          <li key={key}>
-            {product.productName} {quantity} g {caloriesConsumed.toFixed(0)}{" "}
-            kcal
-            <button onClick={() => onDelete(key)}>Delete</button>
+          <li key={key} className={styles.productItem}>
+            <span
+              className={styles.productName}
+              data-fullname={product.productName}
+            >
+              {product.productName}
+            </span>
+            <span className={styles.productQuantity}>{quantity} g</span>
+            <span className={styles.productCalories}>
+              {caloriesConsumed.toFixed(0)} kcal
+            </span>
+            <button
+              className={styles.deleteButton}
+              onClick={() => onDelete(key)}
+            >
+              &#x2716;
+            </button>
           </li>
         );
       })}

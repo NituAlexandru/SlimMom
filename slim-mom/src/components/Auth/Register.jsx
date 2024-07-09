@@ -32,7 +32,7 @@ const Register = () => {
 
   return (
     <div className={styles.registerPage}>
-      <h1>Register</h1>
+      <h2>Register</h2>
       <form onSubmit={handleSubmit} className={styles.registerForm}>
         <div>
           <input

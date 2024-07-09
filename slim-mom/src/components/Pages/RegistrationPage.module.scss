@@ -2,4 +2,8 @@
   display: flex;
   align-items: center;
   transform: translateY(-100px);
+  margin: 0 auto;
+  @media (min-width: 768px) {
+    margin: 0;
+  }
 }

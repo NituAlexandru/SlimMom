@@ -1,10 +1,21 @@
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  gap: 50px;
   padding: 1rem;
   background-color: #fff;
   border-bottom: 2px solid #e0e0e0;
+
+  @media (min-width: 768px) {
+    justify-content: space-between;
+  }
+  @media (min-width: 1024px) {
+    justify-content: left;
+    padding-top: 80px;
+    padding-left: 50px;
+    border-bottom: none;
+  }
 
   .navLink {
     margin: 0 1rem;
@@ -20,7 +31,47 @@
     align-items: center;
     gap: 20px;
     padding-left: 20px;
+    position: relative;
 
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .userContainer {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 3;
+
+      @media (min-width: 768px) {
+        top: -22px;
+        right: 150px;
+      }
+      @media (min-width: 1024px) {
+        position: relative;
+        top: 0;
+        right: 0;
+      }
+    }
+
+    hr {
+      height: 25px;
+      background-color: #e0e0e0;
+    }
+    .diaryCalculatorContainer {
+      display: none;
+
+      @media (min-width: 1024px) {
+        display: flex;
+        gap: 20px;
+      }
+    }
     .navLink {
       margin: 0 1rem;
       text-decoration: none;
@@ -31,6 +82,9 @@
       text-transform: uppercase;
       text-align: right;
       margin: 0;
+
+      @media (min-width: 768px) {
+      }
 
       &:hover {
         color: #555;
@@ -51,6 +105,11 @@
       border: none;
       color: #000;
       cursor: pointer;
+      padding: 0;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: #9b9faa;
 
       &:hover {
         color: #555;
@@ -61,11 +120,5 @@
       margin-left: 20px;
       border-left: 1px solid #e0e0e0;
     }
-  }
-  @media (min-width: 1024px) {
-    border-bottom: none;
-    justify-content: left;
-    padding-top: 80px;
-    padding-left: 50px;
   }
 }

@@ -28,8 +28,6 @@ const MainPage = () => {
 
   return (
     <div className={styles.mainPage}>
-      <h1>Calculate your daily calorie intake right now</h1>
-      {/* Rendering the CalculatorCalorieForm component */}
       <CalculatorCalorieForm
         onSubmit={handleCalculatorSubmit} // Passing the form submission handler
         result={result} // Passing the result state

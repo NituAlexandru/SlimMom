@@ -38,7 +38,7 @@ const CalculatorCalorieForm = ({ onSubmit, result, resetResult }) => {
   };
 
   return (
-    <div>
+    <div className={styles.formContainer}>
       <h2>
         Calculate your daily calorie <br /> intake right now
       </h2>

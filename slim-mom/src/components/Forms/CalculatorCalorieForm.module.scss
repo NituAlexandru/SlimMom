@@ -1,8 +1,21 @@
+.formContainer {
+  width: 320px;
+  padding-left: 20px;
+
+  @media (min-width: 768px) {
+    width: 760px;
+    padding-left: 0;
+  }
+  @media (min-width: 1024px) {
+    width: 690px;
+  }
+}
 h2 {
   font-weight: 700;
   font-size: 18px;
   line-height: 1.4;
   color: #212121;
+
   @media (min-width: 768px) {
     font-size: 34px;
   }
@@ -11,6 +24,7 @@ h2 {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 1fr;
+
   grid-template-areas:
     "height"
     "age"
@@ -19,7 +33,23 @@ h2 {
     "bloodType"
     "button";
   width: 240px;
+  gap: 2rem;
 
+  @media (min-width: 768px) {
+    gap: 0;
+    grid-column-gap: 2rem;
+  }
+  @media (min-width: 1024px) {
+    width: 80%;
+    grid-column-gap: 2rem;
+  }
+  input {
+    width: 240px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: #fc842d;
+  }
   input,
   .bloodTypeSection {
     width: 100%;
@@ -72,20 +102,31 @@ h2 {
   }
   input[name="height"] {
     grid-area: height;
-    margin-top: 2rem;
+
+    @media (min-width: 768px) {
+      margin-top: 2rem;
+    }
   }
 
   input[name="weight"] {
     grid-area: weight;
-    margin-top: 2rem;
+    @media (min-width: 768px) {
+      margin-top: 2rem;
+    }
   }
 
   input[name="age"] {
     grid-area: age;
+    @media (min-width: 768px) {
+      margin-top: 2rem;
+    }
   }
 
   input[name="desiredWeight"] {
     grid-area: desiredWeight;
+    @media (min-width: 768px) {
+      margin-top: 2rem;
+    }
   }
 
   .bloodTypeSection {
@@ -170,6 +211,8 @@ h2 {
     grid-area: button;
     cursor: pointer;
     margin-top: 1.4rem;
+    margin-bottom: 70px;
+    margin-top: 50px;
 
     &:hover {
       background-color: rgb(230, 92, 0);

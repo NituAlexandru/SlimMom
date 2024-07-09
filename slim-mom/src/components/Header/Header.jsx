@@ -15,16 +15,22 @@ const Header = ({ logout }) => {
       <nav>
         {user ? (
           <>
-            <Link to="/diary" className={styles.navLink}>
-              Diary
-            </Link>
-            <Link to="/calculator" className={styles.navLink}>
-              Calculator
-            </Link>
-            <span className={styles.navLink}>{user.name}</span>
-            <button onClick={logout} className={styles.navButton}>
-              Exit
-            </button>
+            <div className={styles.diaryCalculatorContainer}>
+              <Link to="/diary" className={styles.navLink}>
+                Diary
+              </Link>
+              <Link to="/calculator" className={styles.navLink}>
+                Calculator
+              </Link>
+            </div>
+            <div className={styles.userContainer}>
+              {" "}
+              <span className={styles.navLink}>{user.name}</span>
+              <hr />
+              <button onClick={logout} className={styles.navButton}>
+                Exit
+              </button>
+            </div>
           </>
         ) : (
           <>

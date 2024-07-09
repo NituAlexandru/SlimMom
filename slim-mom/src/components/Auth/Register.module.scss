@@ -1,5 +1,9 @@
 .registerPage {
-  h1 {
+  padding-left: 30px;
+  @media (min-width: 1024px) {
+    padding-left: 60px;
+  }
+  h2 {
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 0.04em;
@@ -49,8 +53,5 @@
         color: #fff;
       }
     }
-  }
-  @media (min-width: 1024px) {
-    padding-left: 20px;
   }
 }

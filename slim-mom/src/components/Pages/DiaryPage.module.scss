@@ -3,27 +3,35 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
-  margin: 0 auto;
+  width: 100%;
 
   @media (min-width: 768px) {
-    padding: 40px;
+    padding: 0;
   }
 
   @media (min-width: 1024px) {
     padding: 60px;
+    flex-direction: row;
+    padding: 0 0 0 60px;
   }
 
   .leftPane {
     flex: 1;
-    margin-top: 40px;
-    padding: 0 20px;
+    padding: 0 50px;
+    margin: 0 auto;
+    margin-top: 50px;
 
     @media (min-width: 768px) {
       margin-right: 30px;
+      height: auto;
+      width: 768px;
+      margin-left: 0;
     }
 
     @media (min-width: 1024px) {
-      margin-right: 40px;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     input[type="date"] {
@@ -39,15 +47,20 @@
       outline: none;
       cursor: pointer;
 
-      &::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-      }
       @media (min-width: 768px) {
-        font-size: 16px;
+        width: 300px;
+        font-weight: 700;
+        font-size: 34px;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 20px;
+        height: auto;
       }
 
       @media (min-width: 1024px) {
-        font-size: 18px;
+      }
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
       }
     }
     ul {
@@ -57,6 +70,10 @@
       width: 279px;
       border-radius: 5px;
 
+      @media (min-width: 768px) {
+        width: 610px;
+        margin-bottom: 20px;
+      }
       li {
         display: flex;
         justify-content: space-between;
@@ -76,6 +93,10 @@
           font-weight: 700;
           width: 130px;
           overflow: hidden;
+
+          @media (min-width: 768px) {
+            width: 240px;
+          }
         }
 
         .productDetails {
@@ -131,11 +152,21 @@
     z-index: 2;
     background: #f0f1f3;
     padding: 20px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @media (min-width: 768px) {
+      padding-left: 50px;
     }
 
     @media (min-width: 1024px) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 20px;
+      padding-top: 100px;
     }
   }
 }

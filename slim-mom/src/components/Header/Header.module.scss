@@ -8,10 +8,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; // Adjust this value based on your layout requirements
+
     margin: 0 auto;
     width: 100%;
-    padding: 0 1rem; // Add some padding to the sides for spacing
+    padding: 0 1rem;
 
     @media (min-width: 768px) {
       justify-content: space-between;
@@ -58,7 +58,7 @@
 
       @media (min-width: 768px) {
         top: 55px;
-        right: 66px;
+        right: 0;
       }
       @media (min-width: 1024px) {
         position: relative;

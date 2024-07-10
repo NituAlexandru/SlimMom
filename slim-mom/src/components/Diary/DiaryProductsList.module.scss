@@ -2,6 +2,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  @media (min-width: 768px) {
+    width: 750px;
+  }
 }
 
 .productItem {
@@ -33,6 +36,10 @@
     width: 140px;
     border-bottom: 1px solid #e0e0e0;
     cursor: pointer;
+
+    @media (min-width: 768px) {
+      width: 300px;
+    }
 
     &:hover::before {
       content: attr(data-fullname);

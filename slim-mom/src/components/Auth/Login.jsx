@@ -30,6 +30,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email *"
+            data-tip="Enter a valid email address"
           />
         </div>
         <div>
@@ -38,6 +39,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password *"
+            data-tip="Enter your password"
           />
         </div>
         <button type="submit">Login</button>

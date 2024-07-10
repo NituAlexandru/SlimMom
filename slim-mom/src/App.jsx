@@ -13,10 +13,12 @@ import LoginPage from "./components/Pages/LoginPage";
 import RegistrationPage from "./components/Pages/RegistrationPage";
 import DiaryPage from "./components/Pages/DiaryPage";
 import CalculatorPage from "./components/Pages/CalculatorPage";
+import NotFound from "./components/Pages/NotFound";
 import { RegProvider } from "./context/RegContext";
 import Modal from "react-modal";
 import { useEffect } from "react";
 import styles from "./App.module.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 // Setting the root element for modals to ensure accessibility
 Modal.setAppElement("#root");
@@ -102,7 +104,9 @@ function App() {
                       <CalculatorPage />
                     </PrivateRoute>
                   }
-                />
+                />{" "}
+                <Route path="*" element={<NotFound />} />{" "}
+                {/* Ruta pentru pagina NotFound */}
               </Routes>
             </div>
           </div>

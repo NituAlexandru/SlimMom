@@ -1,4 +1,5 @@
 import api from "./api"; // Importing the API configuration
+import { toast } from "react-toastify";
 
 // Function to get products consumed by the user on a specific date
 export const getUserProducts = async (token, date) => {
@@ -38,6 +39,7 @@ export const addUserProduct = async (product, token) => {
       },
     }
   );
+  toast.success("Product added successfully!");
   return response.data; // Returning the data from the response
 };
 
@@ -49,4 +51,5 @@ export const deleteUserProduct = async (productId, token) => {
       Authorization: `Bearer ${token}`, // Adding the authorization token to the request headers
     },
   });
+  toast.success("Product deleted successfully!");
 };

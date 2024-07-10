@@ -1,6 +1,7 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 // Creating the AuthContext to be used for authentication state management
 export const AuthContext = createContext();
@@ -42,8 +43,10 @@ export const AuthProvider = ({ children }) => {
       dispatch({ type: "LOGIN", payload: { user, token } });
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      toast.success("Login successful!");
     } catch (error) {
       console.error("Login error:", error);
+      toast.error("Login failed. Please check your credentials.");
     }
   };
 
@@ -52,6 +55,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    toast.info("Logout successful!");
   };
 
   // Function to update user profile

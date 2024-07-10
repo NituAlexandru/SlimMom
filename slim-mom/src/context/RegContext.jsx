@@ -2,6 +2,7 @@ import { createContext, useReducer, useContext } from "react";
 import PropTypes from "prop-types";
 import api from "../services/api";
 import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 // Creating context for registration
 export const RegContext = createContext();
@@ -44,11 +45,11 @@ export const RegProvider = ({ children }) => {
       const { token, result: user } = response.data;
 
       // Logging the token for debugging purposes
-      console.log("Token from response:", token);
+      // console.log("Token from response:", token);
 
       // Storing the token in localStorage
       localStorage.setItem("token", token);
-
+      toast.success("Login successful!");
       // Calling the login function to set the authentication state
       await login(email, password);
 
@@ -57,6 +58,7 @@ export const RegProvider = ({ children }) => {
     } catch (error) {
       // Logging any registration errors
       console.error("Register error:", error);
+      toast.error("Registration failed. Please try again.");
     }
   };
 

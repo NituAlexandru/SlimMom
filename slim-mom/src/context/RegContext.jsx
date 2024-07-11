@@ -49,7 +49,8 @@ export const RegProvider = ({ children }) => {
 
       // Storing the token in localStorage
       localStorage.setItem("token", token);
-      toast.success("Login successful!");
+
+      toast.success("Registration successful!");
       // Calling the login function to set the authentication state
       await login(email, password);
 

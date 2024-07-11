@@ -10,13 +10,13 @@ const SECRET_KEY = process.env.SECRET_KEY; // Retrieving the secret key for JWT 
 // Controller function to handle user registration
 export const registerUser = async (req, res) => {
   const { name, email, password, dailyCalories, nonRecommended } = req.body; // Destructure the request body
-  console.log(
-    "Received registration request:",
-    name,
-    email,
-    dailyCalories,
-    nonRecommended
-  );
+  // console.log(
+  //   "Received registration request:",
+  //   name,
+  //   email,
+  //   dailyCalories,
+  //   nonRecommended
+  // );
 
   try {
     const existingUser = await User.findOne({ email }); // Check if the user already exists
@@ -40,11 +40,11 @@ export const registerUser = async (req, res) => {
       { expiresIn: "1h" } // Set token expiration to 1 hour
     );
 
-    console.log("Generated token:", token);
-    console.log("New user created:", newUser);
+    // console.log("Generated token:", token);
+    // console.log("New user created:", newUser);
 
     res.status(201).json({ result: newUser, token }); // Send a 201 response with the new user and token
-    console.log("Response sent to frontend:", { result: newUser, token });
+    // console.log("Response sent to frontend:", { result: newUser, token });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" }); // Send a 500 error if something goes wrong
   }

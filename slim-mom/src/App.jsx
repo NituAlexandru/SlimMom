@@ -19,6 +19,7 @@ import Modal from "react-modal";
 import { useEffect } from "react";
 import styles from "./App.module.scss";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 // Setting the root element for modals to ensure accessibility
 Modal.setAppElement("#root");
@@ -108,6 +109,7 @@ function App() {
                 <Route path="*" element={<NotFound />} />{" "}
                 {/* Ruta pentru pagina NotFound */}
               </Routes>
+              <ToastContainer />
             </div>
           </div>
         </RegProvider>

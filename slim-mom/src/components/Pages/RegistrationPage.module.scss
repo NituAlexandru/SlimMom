@@ -1,9 +1,17 @@
 .registerContainer {
   display: flex;
   align-items: center;
-  transform: translateY(-100px);
-  margin: 0 auto;
+  width: 100%;
   @media (min-width: 768px) {
-    margin: 0;
+    background-image: url("../src/assets/home.webp");
+
+    background-size: cover;
+    background-position-x: right;
+    background-size: 980px 820px; /* Setează dimensiunile imaginii de fundal */
+    background-repeat: no-repeat;
+  }
+  @media (min-width: 1240px) {
+    background-image: url("../src/assets/home.webp"),
+      url("../src/assets/vector.webp");
   }
 }

@@ -159,6 +159,11 @@
 
     @media (min-width: 768px) {
       padding-left: 50px;
+      background-image: url("../../assets/login-page-t-1.webp");
+      background-size: cover;
+      background-position-x: right;
+      background-size: 980px 820px; /* Setează dimensiunile imaginii de fundal */
+      background-repeat: no-repeat;
     }
 
     @media (min-width: 1024px) {
@@ -167,6 +172,9 @@
       justify-content: flex-start;
       gap: 20px;
       padding-top: 100px;
+    }
+    @media (min-width: 1240px) {
+      background-image: url("../../assets/calculator-page-d.webp");
     }
   }
 }

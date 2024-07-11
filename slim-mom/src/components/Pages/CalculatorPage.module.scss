@@ -65,6 +65,11 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url("../../assets/login-page-t-1.webp");
+    background-size: cover;
+    background-position-x: right;
+    background-size: 980px 820px; /* Setează dimensiunile imaginii de fundal */
+    background-repeat: no-repeat;
 
     @media (min-width: 1024px) {
       height: 100vh;
@@ -73,6 +78,9 @@ h2 {
       flex-direction: column;
       padding-right: 50px;
       padding-top: 50px;
+    }
+    @media (min-width: 1240px) {
+      background-image: url("../../assets/calculator-page-d.webp");
     }
   }
 
